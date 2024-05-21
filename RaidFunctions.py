@@ -1,5 +1,15 @@
 import os
+import re
+def validate_hex_message(message):
+    # Проверка на длину строки
+    if len(message) != 14:
+        return False
 
+    # Проверка на допустимые 16-ричные символы
+    if re.fullmatch(r'[0-9a-fA-F]{14}', message):
+        return True
+    else:
+        return False
 def check_and_create_file(filename):
     if not os.path.isfile(filename):
         with open(filename, 'w') as file:
@@ -95,55 +105,82 @@ def read(address):
     modular_division = address % 3
     if (modular_division == 0):
         if (is_line_empty('disk0.txt', address)):
-            ans_first_part = read_specific_line('disk1.txt', address)
-            ans_second_part = read_specific_line('disk2.txt', address)
-            prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
-            ans = prev_ans + ans_first_part
+            if(is_line_empty('disk1.txt', address) or is_line_empty('disk2.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk1.txt', address)
+                ans_second_part = read_specific_line('disk2.txt', address)
+                prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
+                ans = prev_ans + ans_first_part
             return ans
         elif (is_line_empty('disk1.txt', address)):
-            ans_first_part = read_specific_line('disk0.txt', address)
-            ans_second_part = read_specific_line('disk2.txt', address)
-            prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
-            ans = ans_first_part + prev_ans
-            return ans
+            if(is_line_empty('disk0.txt', address) or is_line_empty('disk2.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk0.txt', address)
+                ans_second_part = read_specific_line('disk2.txt', address)
+                prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
+                ans = ans_first_part + prev_ans
+                return ans
         else:
-            ans_first_part = read_specific_line('disk0.txt', address)
-            ans_second_part = read_specific_line('disk1.txt', address)
-            ans = ans_first_part + ans_second_part
-            return ans
+            if(is_line_empty('disk0.txt', address) or is_line_empty('disk1.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk0.txt', address)
+                ans_second_part = read_specific_line('disk1.txt', address)
+                ans = ans_first_part + ans_second_part
+                return ans
     elif (modular_division == 1):
         if (is_line_empty('disk0.txt', address)):
-            ans_first_part = read_specific_line('disk1.txt', address)
-            ans_second_part = read_specific_line('disk2.txt', address)
-            prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
-            ans = prev_ans + ans_first_part
-            return ans
+            if(is_line_empty('disk1.txt', address) or is_line_empty('disk2.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk1.txt', address)
+                ans_second_part = read_specific_line('disk2.txt', address)
+                prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
+                ans = prev_ans + ans_first_part
+                return ans
         elif (is_line_empty('disk2.txt', address)):
-            ans_first_part = read_specific_line('disk0.txt', address)
-            ans_second_part = read_specific_line('disk1.txt', address)
-            prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
-            ans = ans_first_part + prev_ans
-            return ans
+            if(is_line_empty('disk0.txt', address) or is_line_empty('dis1.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk0.txt', address)
+                ans_second_part = read_specific_line('disk1.txt', address)
+                prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
+                ans = ans_first_part + prev_ans
+                return ans
         else:
-            ans_first_part = read_specific_line('disk0.txt', address)
-            ans_second_part = read_specific_line('disk2.txt', address)
-            ans = ans_first_part + ans_second_part
-            return ans
+            if(is_line_empty('disk0.txt', address) or is_line_empty('disk2.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk0.txt', address)
+                ans_second_part = read_specific_line('disk2.txt', address)
+                ans = ans_first_part + ans_second_part
+                return ans
     else:
         if (is_line_empty('disk1.txt', address)):
-            ans_first_part = read_specific_line('disk0.txt', address)
-            ans_second_part = read_specific_line('disk2.txt', address)
-            prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
-            ans = prev_ans + ans_first_part
-            return ans
+            if(is_line_empty('disk0.txt', address) or is_line_empty('disk2.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk0.txt', address)
+                ans_second_part = read_specific_line('disk2.txt', address)
+                prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
+                ans = prev_ans + ans_first_part
+                return ans
         elif (is_line_empty('disk2.txt', address)):
-            ans_first_part = read_specific_line('disk0.txt', address)
-            ans_second_part = read_specific_line('disk1.txt', address)
-            prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
-            ans = ans_second_part + prev_ans
-            return ans
+            if(is_line_empty('disk0.txt', address) or is_line_empty('disk1.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk0.txt', address)
+                ans_second_part = read_specific_line('disk1.txt', address)
+                prev_ans = xor_hex_numbers(ans_first_part, ans_second_part)
+                ans = ans_second_part + prev_ans
+                return ans
         else:
-            ans_first_part = read_specific_line('disk1.txt', address)
-            ans_second_part = read_specific_line('disk2.txt', address)
-            ans = ans_first_part + ans_second_part
-            return ans
+            if(is_line_empty('disk1.txt', address) or is_line_empty('disk2.txt', address)):
+                return 'По данному адресу ничего нет'
+            else:
+                ans_first_part = read_specific_line('disk1.txt', address)
+                ans_second_part = read_specific_line('disk2.txt', address)
+                ans = ans_first_part + ans_second_part
+                return ans
